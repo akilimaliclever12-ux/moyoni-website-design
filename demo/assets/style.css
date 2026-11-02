@@ -202,6 +202,7 @@ select{height:48px;border:1px solid var(--ink);border-radius:4px;background:tran
 .ctl h2{font-size:30px;font-weight:500;letter-spacing:-.01em}
 .ctl .cg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:20px}
 .ctl .card h3{font-size:19px}
+.ctl-m{display:none}
 .pinfo{display:flex;flex-direction:column;gap:26px;padding-top:8px;position:sticky;top:110px}
 .pinfo h1{font-size:58px;font-weight:500;line-height:1.03;letter-spacing:-.01em;margin-top:-10px}
 .price{font-family:'Playfair Display',serif;font-size:30px;font-weight:500}
@@ -277,7 +278,7 @@ details[open] summary::after{content:'−'}
   .gal{grid-template-columns:1fr}.thumbs{flex-direction:row;order:2;overflow-x:auto}
   .main-ph{border-radius:0;margin:0 -20px}
   .pinfo{position:static}.pinfo h1{font-size:44px}
-  .ctl{margin:36px 0 0}.ctl .cg{gap:12px}
+  .ctl .cg{gap:12px}.ctl-d{display:none}.ctl-m{display:block;margin:0;padding-top:22px;border-top:1px solid var(--hair)}.ctl-m h2{font-size:28px}
   .modal{padding:30px 20px 26px;top:auto;bottom:0;left:0;width:100%;transform:translateY(40px);border-radius:18px 18px 0 0;max-height:92vh}
   .modal.open{transform:none}
   .fgrid{grid-template-columns:1fr 86px;gap:16px}

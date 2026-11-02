@@ -288,6 +288,7 @@
     function render() {
       var v = variant() || first, avail = v.a;
       var pairs = (D.pairs[p.h] || []).map(function (x) { return byH[x]; }).filter(Boolean);
+      var ctlBlock = function (cls, id) { return pairs.length ? '<section class="ctl ' + cls + '" aria-labelledby="' + id + '"><h2 id="' + id + '" class="pf">Complete the <em>look</em></h2><div class="cg">' + pairs.map(function (x) { return cardHTML(x, 400); }).join('') + '</div></section>' : ''; };
       var thumbs = p.im.slice(0, 8).map(function (u, i) { return '<button class="' + (i === cur ? 'on' : '') + '" data-th="' + i + '" aria-label="View photo ' + (i + 1) + '"><img src="' + im(u, 200) + '" alt="" width="76" height="96" loading="' + (i ? 'lazy' : 'eager') + '"></button>'; }).join('');
       var optHTML = opts.map(function (o, oi) {
         return '<div><div class="olbl"><span>' + esc(o.n) + ' · <b style="color:#1E1B1C;text-transform:none;letter-spacing:.04em;font-size:13px;font-weight:700">' + esc(sel[oi]) + '</b></span>' + (o.n === 'Size' && hasSizeGuide() ? '<button data-open="size">Find your size</button>' : '') + '</div><div class="pills" role="group" aria-label="' + esc(o.n) + '">' +
@@ -295,7 +296,7 @@
       }).join('');
       root.innerHTML =
         '<div><div class="gal"><div class="thumbs">' + thumbs + '</div><div class="main-ph"><img id="mainimg" src="' + im(p.im[cur], 1000) + '" alt="' + esc(p.t) + '" width="667" height="890"></div></div>' +
-        (pairs.length ? '<section class="ctl" aria-labelledby="ctlh"><h2 id="ctlh" class="pf">Complete the <em>look</em></h2><div class="cg">' + pairs.map(function (x) { return cardHTML(x, 400); }).join('') + '</div></section>' : '') + '</div>' +
+        ctlBlock('ctl-d', 'ctlh') + '</div>' +
         '<div class="pinfo"><span class="lbl muted">Women · ' + esc(kind === 'Women' ? 'Pieces' : kind) + '</span><h1 class="pf">' + esc(p.t) + '</h1>' +
         '<div style="display:flex;align-items:baseline;gap:18px;margin-top:-8px"><span class="price" id="pp">' + money(v.p) + '</span><span class="lbl muted" style="font-size:11px">Made to order</span></div><div style="height:1px;background:rgba(30,27,28,.2)"></div>' +
         optHTML +
@@ -303,6 +304,7 @@
         (avail ? '<button class="btn btn-p" id="addbtn">Add to cart</button>' : '<a class="btn btn-o" href="' + CUSTOM + '" target="_blank" rel="noopener">Sold out · request a custom order</a>') + '</div>' +
         '<p class="muted" style="font-size:14px;margin-top:-10px">Buy 2 or more: 10% off and free shipping.</p>' +
         '<a class="tl" href="' + CUSTOM + '" target="_blank" rel="noopener" style="align-self:flex-start">Want it customised? Start a custom order →</a>' +
+        ctlBlock('ctl-m', 'ctlh2') +
         '<p class="note-i">Made to order and hand-stitched in Tanzania. In-stock colours ship in 1 to 3 business days. Custom colours or sizes are tailored to you in 7 to 14 days.</p>' +
         '<div class="ship"><div><span><b>United States</b> · FedEx<small>Tracked, door to door</small></span><b class="e">2–5 business days</b></div><div><span><b>International</b> · DHL<small>Tracked worldwide express</small></span><b class="e">6–14 business days</b></div></div>' +
         '<div><details open><summary>Description</summary><div class="dbody">' + (p.d || '<p>Handmade in Tanzania.</p>') + '</div></details><details><summary>Fabric &amp; care</summary><div class="dbody"><p>Hand wash in cold water. Iron on the reverse side of the garment. Do not dry clean.</p></div></details><details><summary>Shipping &amp; returns</summary><div class="dbody"><p>3-day returns. Delivery estimates are shown above.</p></div></details></div></div>';
