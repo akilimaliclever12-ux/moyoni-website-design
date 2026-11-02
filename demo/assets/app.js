@@ -284,7 +284,7 @@
     $('#pcr').innerHTML = '<a href="index.html">Home</a><span aria-hidden="true">/</span><a href="collection.html?c=all">Women</a><span aria-hidden="true">/</span>' + (kind !== 'Women' ? '<a href="collection.html?c=' + cl + '">' + kind + '</a><span aria-hidden="true">/</span>' : '') + '<span aria-current="page" style="color:#1E1B1C">' + esc(p.t) + '</span>';
 
     function variant() { return p.v.filter(function (v) { return v.o.join('|') === sel.join('|'); })[0]; }
-    function hasSizeGuide() { return opts.some(function (o) { return o.n === 'Size' && o.v.some(function (x) { return /^(S|M|L|XL)$/i.test(x.trim()); }); }); }
+    function hasSizeGuide() { return opts.some(function (o) { return o.n === 'Size' && o.v.some(function (x) { return /^(xs|s|m|l|xl|small|medium|large|x-large|extra large)$/i.test(x.trim()); }); }); }
     function render() {
       var v = variant() || first, avail = v.a;
       var pairs = (D.pairs[p.h] || []).map(function (x) { return byH[x]; }).filter(Boolean);
@@ -326,7 +326,8 @@
     MO.pickSize = function (letter) {
       var oi = opts.findIndex(function (o) { return o.n === 'Size'; });
       if (oi < 0) { closePanel(); return; }
-      var val = opts[oi].v.filter(function (x) { return x.trim().toLowerCase() === letter.toLowerCase(); })[0];
+      var SZ = { S: ['s', 'small'], M: ['m', 'medium'], L: ['l', 'large'], XL: ['xl', 'x-large', 'extra large'] }, names = SZ[letter] || [letter.toLowerCase()];
+      var val = opts[oi].v.filter(function (x) { return names.indexOf(x.trim().toLowerCase()) > -1; })[0];
       if (!val) { closePanel(); toast('Size ' + letter + ' is not offered on this piece. Try a custom order.'); return; }
       sel[oi] = val; if (!variant()) { var m = p.v.filter(function (vv) { return vv.o[oi] === val; })[0]; if (m) sel = m.o.slice(); }
       render(); closePanel(); toast('Size ' + letter + ' selected');
